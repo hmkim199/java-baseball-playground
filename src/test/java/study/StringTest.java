@@ -10,4 +10,16 @@ public class StringTest {
         String actual = "abc".replace("b", "d");
         assertThat(actual).isEqualTo("adc");
     }
+
+    @Test
+    void split(){
+        String[] actual = "1,2".split(",");
+        assertThat(actual).contains("1", "2");
+    }
+
+    @Test
+    void splitJustOne(){
+        String[] actual = "1".split(",");
+        assertThat(actual).containsOnly("1");
+    }
 }
