@@ -3,6 +3,7 @@ package study;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.HashSet;
@@ -23,14 +24,21 @@ public class SetTest {
     }
 
     @Test
-    void size(){
+    void size() {
         Integer actual = numbers.size();
         assertThat(actual).isEqualTo(3);
     }
 
     @ParameterizedTest
     @ValueSource(ints = {1, 2, 3})
-    void contains(Integer element){
+    void contains(Integer element) {
         assertThat(numbers.contains(element)).isTrue();
+    }
+
+    @ParameterizedTest
+    @CsvSource(value = {"1:true", "2:true", "3:true", "4:false", "5:false"}, delimiter = ':')
+    void containsByCsv(Integer input, Boolean expected) {
+        Boolean isContain = numbers.contains(input);
+        assertThat(isContain).isEqualTo(expected);
     }
 }
