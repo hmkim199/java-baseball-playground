@@ -1,6 +1,7 @@
 package study;
 
 import java.util.Arrays;
+import java.util.List;
 
 // 정상 입력
 
@@ -22,7 +23,7 @@ public class StringCalculator {
 
     public Double calculateString(String[] values){
         // 유효 인풋 체크
-        if (!isValidate(values)) throw new IllegalArgumentException();
+        if (!isValid(values)) throw new IllegalArgumentException();
 
         // 계산
         Double result = Double.valueOf(values[0]);
@@ -43,26 +44,37 @@ public class StringCalculator {
         return result;
     }
 
-    private Boolean isValidate(String[] values) {
+    private Boolean isValid(String[] values) {
         try {
-            if (values.length % 2 == 0) {
-                System.out.println("올바른 입력이 아닙니다.");
-                return false;
-            }
-            for (int i = 0; i < values.length; i++) {
-                if (i % 2 == 0) {
-                    Integer.parseInt(values[i]);
-                } else if (i % 2 == 1) {
-                    if (!Arrays.asList(operator).contains(values[i])) {
-                        System.out.println(values[i] +"는 연산자가 아닙니다.");
-                        return false;
-                    }
-                }
-            }
+            Boolean x = isValidInput(values);
+            if (x != null) return x;
         } catch (Exception numberFormatException) {
             System.out.println("numberFormatException = " + numberFormatException);
             return false;
         }
         return true;
+    }
+
+    private Boolean isValidInput(String[] values) {
+        List<String> operators = Arrays.asList(operator);
+
+        // ( 숫자, 연산자, 숫자 ) 패턴이므로 values length가 2가 될 수 없다.
+        if (values.length % 2 == 0) {
+            System.out.println("올바른 입력이 아닙니다.");
+            return false;
+        }
+        for (int i = 0; i < values.length; i++) {
+            // 짝수 인덱스
+            if (i % 2 == 0) {
+                Integer.parseInt(values[i]);
+                continue;
+            }
+            // 홀수 인덱스
+            if (!operators.contains(values[i])) {
+                System.out.println(values[i] +"는 연산자가 아닙니다.");
+                return false;
+            }
+        }
+        return null;
     }
 }
