@@ -1,11 +1,21 @@
 package baseball;
 
-import java.util.Arrays;
+import java.util.Scanner;
 
 public class Baseball {
     public void play() {
         // 1. 랜덤 세자리 수 생성
         int[] randomThreeDigits = createRandomThreeDigits();
+
+        // 2. 사용자 숫자 입력
+        Scanner sc = new Scanner(System.in);
+        int userGuessThreeDigits = guessThreeDigits(sc);
+    }
+
+    public int guessThreeDigits(Scanner scanner) {
+        int userDigits = scanner.nextInt();
+
+        return userDigits;
     }
 
     public int[] createRandomThreeDigits() {
