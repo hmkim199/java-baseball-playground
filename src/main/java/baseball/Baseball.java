@@ -10,6 +10,20 @@ public class Baseball {
         // 2. 사용자 숫자 입력
         Scanner sc = new Scanner(System.in);
         int userGuessThreeDigits = guessThreeDigits(sc);
+
+        // 3. 사용자 인풋 유효성 검사 (3자리 숫자인지)
+        validateUserInput(userGuessThreeDigits);
+    }
+
+    public Boolean validateUserInput(int userGuessThreeDigits) {
+        Boolean isValid = false;
+        if (userGuessThreeDigits / 1000 > 0) {
+            return isValid;
+        } else if (userGuessThreeDigits / 100 <= 0 || userGuessThreeDigits / 100 >= 10) {
+            return isValid;
+        }
+        isValid = true;
+        return isValid;
     }
 
     public int guessThreeDigits(Scanner scanner) {

@@ -77,6 +77,26 @@ public class BaseballTest {
         assertThatThrownBy(() -> baseball.guessThreeDigits(scanner)).isInstanceOf(InputMismatchException.class);
     }
 
+    @ParameterizedTest
+    @ValueSource(ints = {123, 456, 789})
+    void validateUserInputTest(int userGuessThreeDigits) {
+        // when
+        Boolean result = baseball.validateUserInput(userGuessThreeDigits);
+
+        // then
+        assertThat(result).isTrue();
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = {1234, 45, 12345})
+    void validateUserWrongInputTest(int userGuessThreeDigits) {
+        // when
+        Boolean result = baseball.validateUserInput(userGuessThreeDigits);
+
+        // then
+        assertThat(result).isFalse();
+    }
+
     /*
     * 참고: https://sakjung.tistory.com/33, https://www.baeldung.com/java-junit-testing-system-in
     * */
